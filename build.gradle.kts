@@ -6,10 +6,11 @@ plugins {
 }
 
 group = "tomasvolker"
-version = "0.0.1-SNAPSHOT"
+version = "0.1"
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://dl.bintray.com/openrndr/openrndr/") }
 }
 
 val openrndrVersion = "0.3.30"
@@ -22,14 +23,13 @@ val openrndrOS = when (OperatingSystem.current()) {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
+    api(kotlin("stdlib"))
     testCompile("junit", "junit", "4.12")
 
-    compile("org.openrndr:openrndr-core:$openrndrVersion")
-    compile("org.openrndr:openrndr-extensions:$openrndrVersion")
-    //compile("org.openrndr:openrndr-ffmpeg:$openrndrVersion")
+    api("org.openrndr:openrndr-core:$openrndrVersion")
+    api("org.openrndr:openrndr-extensions:$openrndrVersion")
 
-    runtime("org.openrndr:openrndr-gl3:$openrndrVersion")
-    runtime("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
+    testRuntime("org.openrndr:openrndr-gl3:$openrndrVersion")
+    testRuntime("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
     
 }
