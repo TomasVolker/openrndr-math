@@ -9,10 +9,9 @@ import org.openrndr.Program
 import org.openrndr.draw.Drawer
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
-import org.openrndr.math.transforms.transform
 import kotlin.math.exp
 
-private class Camera2D {
+class Camera2D {
 
     var scrollSpeed: Double = 0.1
     var zoomDragSpeed: Double = 0.002
@@ -51,8 +50,7 @@ private class Camera2D {
         val delta = event.dragDisplacement
 
         view *= when(state) {
-            is State.Pan -> transform {
-                //translate(delta / view[0].x)
+            is State.Pan -> pipeTransforms {
                 translate((view.inversed * delta.xy0).xy)
             }
             is State.Zoom -> pipeTransforms {
@@ -83,7 +81,7 @@ class PanZoom : Extension {
 
     override var enabled: Boolean = true
 
-    private val camera = Camera2D()
+    val camera = Camera2D()
 
     override fun setup(program: Program) {
 
@@ -113,6 +111,8 @@ class PanZoom : Extension {
 
     }
     override fun beforeDraw(drawer: Drawer, program: Program) {
-        drawer.view = camera.view
+        if (enabled) {
+            drawer.view = camera.view
+        }
     }
 }

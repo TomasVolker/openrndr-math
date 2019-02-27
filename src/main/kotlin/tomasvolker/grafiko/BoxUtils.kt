@@ -20,10 +20,10 @@ fun Rectangle.smallestContainingBox(aspectRatio: Double = 1.0) =
     else
         Rectangle.fromCenter(center, width = width, height = width / aspectRatio)
 
-fun Rectangle.enlarge(factor: Double) =
+fun Rectangle.scaleCentered(factor: Double) =
     Rectangle.fromCenter(center, width * factor, height * factor)
 
-fun Rectangle.enlarge(factorX: Double, factorY: Double) =
+fun Rectangle.scaleCentered(factorX: Double, factorY: Double) =
     Rectangle.fromCenter(center, width * factorX, height * factorY)
 
 val Rectangle.Companion.EMPTY get() = Rectangle(0.0, 0.0, 0.0, 0.0)
