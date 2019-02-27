@@ -1,4 +1,4 @@
-package tomasvolker.grafiko.primitives
+package tomasvolker.openrndr.math.primitives
 
 /**
  * Returns the Char with the numeric value equal to this number, truncated to 16 bits if appropriate.

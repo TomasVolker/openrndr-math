@@ -1,4 +1,4 @@
-package tomasvolker.grafiko.extensions
+package tomasvolker.openrndr.math.extensions
 
 import org.openrndr.*
 import org.openrndr.color.ColorRGBa

@@ -1,4 +1,4 @@
-package tomasvolker.grafiko
+package tomasvolker.openrndr.math
 
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Quaternion

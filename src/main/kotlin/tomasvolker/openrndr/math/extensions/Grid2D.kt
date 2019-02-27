@@ -1,4 +1,4 @@
-package tomasvolker.grafiko.extensions
+package tomasvolker.openrndr.math.extensions
 
 import org.openrndr.Extension
 import org.openrndr.Program
@@ -7,7 +7,7 @@ import org.openrndr.draw.Drawer
 import org.openrndr.draw.isolated
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
-import tomasvolker.grafiko.primitives.d
+import tomasvolker.openrndr.math.primitives.d
 import kotlin.math.*
 
 class Grid2D: Extension {

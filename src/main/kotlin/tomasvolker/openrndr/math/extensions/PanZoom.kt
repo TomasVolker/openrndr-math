@@ -1,6 +1,6 @@
-package tomasvolker.grafiko.extensions
+package tomasvolker.openrndr.math.extensions
 
-import tomasvolker.grafiko.pipeTransforms
+import tomasvolker.openrndr.math.pipeTransforms
 import org.openrndr.Extension
 import org.openrndr.MouseButton
 import org.openrndr.MouseEvent
@@ -8,7 +8,7 @@ import org.openrndr.Program
 import org.openrndr.draw.Drawer
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
-import tomasvolker.grafiko.xy
+import tomasvolker.openrndr.math.xy
 import kotlin.math.exp
 
 class Camera2D {
@@ -28,7 +28,8 @@ class Camera2D {
     }
 
 
-    var state: State = State.Idle
+    var state: State =
+        State.Idle
 
     fun mouseDown(event: MouseEvent) {
 

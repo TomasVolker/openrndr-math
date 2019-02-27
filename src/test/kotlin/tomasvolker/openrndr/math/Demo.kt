@@ -1,14 +1,18 @@
-package tomasvolker.grafiko
+package tomasvolker.openrndr.math
 
 import org.openrndr.color.ColorRGBa
+import org.openrndr.draw.DrawQuality
 import org.openrndr.math.Vector2
-import tomasvolker.grafiko.plot.plotLine
-import tomasvolker.grafiko.plot.plotScatter
-import tomasvolker.grafiko.plot.quickPlot
-import tomasvolker.grafiko.primitives.d
+import org.openrndr.math.Vector3
+import tomasvolker.openrndr.math.plot.plotLine
+import tomasvolker.openrndr.math.plot.plotScatter
+import tomasvolker.openrndr.math.plot.quickPlot2D
+import tomasvolker.openrndr.math.plot.quickPlot3D
+import tomasvolker.openrndr.math.primitives.d
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.random.Random
 
 fun main() {
 
@@ -24,7 +28,7 @@ fun main() {
     val pointList2 = x
         .zip(y2) { x, y -> Vector2(x, y)}
 
-    quickPlot {
+    quickPlot2D {
 
         stroke = ColorRGBa.RED
         strokeWeight = 2.0
@@ -36,6 +40,5 @@ fun main() {
         plotScatter(pointList2)
 
     }
-
 
 }

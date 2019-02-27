@@ -1,4 +1,4 @@
-package tomasvolker.grafiko
+package tomasvolker.openrndr.math
 
 import org.openrndr.draw.Drawer
 import org.openrndr.draw.isolated

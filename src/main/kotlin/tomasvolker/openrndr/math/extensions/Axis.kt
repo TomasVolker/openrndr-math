@@ -1,15 +1,14 @@
-package tomasvolker.grafiko.extensions
+package tomasvolker.openrndr.math.extensions
 
 import org.openrndr.Extension
 import org.openrndr.Program
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
-import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
-import tomasvolker.grafiko.isolatedOrtho
-import tomasvolker.grafiko.primitives.d
-import tomasvolker.grafiko.scaleCentered
+import tomasvolker.openrndr.math.isolatedOrtho
+import tomasvolker.openrndr.math.primitives.d
+import tomasvolker.openrndr.math.scaleCentered
 
 class Axis: Extension {
 

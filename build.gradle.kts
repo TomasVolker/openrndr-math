@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "tomasvolker"
-version = "0.0.1-SNAPSHOT"
+version = "0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ dependencies {
     api("org.openrndr:openrndr-core:$openrndrVersion")
     api("org.openrndr:openrndr-extensions:$openrndrVersion")
 
-    runtime("org.openrndr:openrndr-gl3:$openrndrVersion")
-    runtime("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
+    testRuntime("org.openrndr:openrndr-gl3:$openrndrVersion")
+    testRuntime("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
     
 }

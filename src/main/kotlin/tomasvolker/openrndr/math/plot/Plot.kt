@@ -1,19 +1,19 @@
-package tomasvolker.grafiko.plot
+package tomasvolker.openrndr.math.plot
 
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.DrawQuality
 import org.openrndr.draw.Drawer
+import org.openrndr.extensions.Debug3D
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
-import tomasvolker.grafiko.extensions.CursorPosition
-import tomasvolker.grafiko.extensions.FPSDisplay
-import tomasvolker.grafiko.extensions.Grid2D
-import tomasvolker.grafiko.extensions.PanZoom
-import tomasvolker.grafiko.fromCorners
-import tomasvolker.grafiko.pipeTransforms
-import tomasvolker.grafiko.projected
-import tomasvolker.grafiko.translated
+import tomasvolker.openrndr.math.extensions.CursorPosition
+import tomasvolker.openrndr.math.extensions.Grid2D
+import tomasvolker.openrndr.math.extensions.PanZoom
+import tomasvolker.openrndr.math.fromCorners
+import tomasvolker.openrndr.math.pipeTransforms
+import tomasvolker.openrndr.math.projected
+import tomasvolker.openrndr.math.translated
 
 fun Drawer.plotBars(width: Double, pointList: List<Vector2>) {
     rectangles(
@@ -37,7 +37,7 @@ fun Drawer.plotScatter(pointList: List<Vector2>, radius: Double = 5.0) {
     }
 }
 
-fun quickPlot(
+fun quickPlot2D(
     title: String = "Plot",
     width: Int = 640,
     height: Int = 480,
@@ -60,7 +60,7 @@ fun quickPlot(
 
             extend(PanZoom()) {
                 camera.view = pipeTransforms {
-                    if(yUpwards) scale(y = -1.0)
+                    if (yUpwards) scale(y = -1.0)
                     scale(100.0)
                 }
             }
@@ -68,6 +68,38 @@ fun quickPlot(
             extend(CursorPosition())
 
             extend {
+                drawer.block()
+            }
+
+        }
+
+    }
+
+}
+
+fun quickPlot3D(
+    title: String = "Plot",
+    width: Int = 640,
+    height: Int = 480,
+    yUpwards: Boolean = true,
+    block: Drawer.()->Unit
+) {
+
+    application {
+
+        configure {
+            this.title = title
+            this.width = width
+            this.height = height
+            windowResizable = true
+        }
+
+        program {
+
+            extend(Debug3D())
+
+            extend {
+                drawer.background(ColorRGBa.WHITE)
                 drawer.block()
             }
 

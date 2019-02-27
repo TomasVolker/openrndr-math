@@ -1,4 +1,4 @@
-package tomasvolker.grafiko
+package tomasvolker.openrndr.math
 
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle

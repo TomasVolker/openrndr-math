@@ -1,11 +1,11 @@
-package tomasvolker.grafiko.extensions
+package tomasvolker.openrndr.math.extensions
 
 import org.openrndr.Extension
 import org.openrndr.Program
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
-import tomasvolker.grafiko.isolatedOrtho
-import tomasvolker.grafiko.primitives.d
+import tomasvolker.openrndr.math.isolatedOrtho
+import tomasvolker.openrndr.math.primitives.d
 
 class FPSDisplay : Extension {
     override var enabled: Boolean = true

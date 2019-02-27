@@ -1,14 +1,11 @@
-package tomasvolker.grafiko.extensions
+package tomasvolker.openrndr.math.extensions
 
 import org.openrndr.Extension
 import org.openrndr.Program
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
-import org.openrndr.draw.isolated
-import org.openrndr.math.Matrix44
-import tomasvolker.grafiko.isolatedOrtho
-import tomasvolker.grafiko.primitives.d
-import tomasvolker.grafiko.xy
+import tomasvolker.openrndr.math.isolatedOrtho
+import tomasvolker.openrndr.math.xy
 
 class CursorPosition: Extension {
 
