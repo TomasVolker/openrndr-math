@@ -1,4 +1,4 @@
-package tomasvolker.grafiko
+package tomasvolker.grafiko.extensions
 
 import org.openrndr.Extension
 import org.openrndr.Program
@@ -7,27 +7,14 @@ import org.openrndr.draw.Drawer
 import org.openrndr.draw.isolated
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
-import org.openrndr.shape.Rectangle
+import tomasvolker.grafiko.primitives.d
 import kotlin.math.*
 
-class Grid2D : Extension {
+class Grid2D: Extension {
 
     override var enabled: Boolean = true
 
-    var color = ColorRGBa.GRAY
-    var gridWeight = 1.0
-
-    val font = Resources.fontImageMap("IBMPlexMono-Bold.ttf", 16.0)
-
-    infix fun Double.modulo(other: Double) = ((this % other) + other) % other
-
-    val Drawer.viewBounds get() =
-        Rectangle(
-            x = - view.c3r0 / view.c0r0,
-            y = - view.c3r1 / view.c1r1,
-            width = width / view.c0r0,
-            height = height / view.c1r1
-        )
+    var font = Resources.defaultFont
 
     override fun beforeDraw(drawer: Drawer, program: Program) {
 
@@ -38,13 +25,13 @@ class Grid2D : Extension {
             val xTicks = ticks(
                 viewScaling = view.c0r0,
                 viewDelta = view.c3r0,
-                length = width.toDouble()
+                length = width.d
             )
 
             val yTicks = ticks(
                 viewScaling = view.c1r1,
                 viewDelta = view.c3r1,
-                length = height.toDouble()
+                length = height.d
             )
 
             isolated {
@@ -70,14 +57,17 @@ class Grid2D : Extension {
         lineStrip(
             listOf(
                 Vector2(tick.cameraPosition, 0.0),
-                Vector2(tick.cameraPosition, height.toDouble())
+                Vector2(tick.cameraPosition, height.d)
             )
         )
-        text(
-            tick.tag,
-            x = tick.cameraPosition,
-            y = height.toDouble()
-        )
+        tick.tag?.let {
+            text(
+                it,
+                x = tick.cameraPosition,
+                y = height.d
+            )
+        }
+
     }
 
     fun Drawer.drawYTick(tick: Tick) {
@@ -86,14 +76,17 @@ class Grid2D : Extension {
         lineStrip(
             listOf(
                 Vector2(0.0, tick.cameraPosition),
-                Vector2(width.toDouble(), tick.cameraPosition)
+                Vector2(width.d, tick.cameraPosition)
             )
         )
-        text(
-            tick.tag,
-            x = 0.0,
-            y = tick.cameraPosition
-        )
+        tick.tag?.let {
+            text(
+                it,
+                x = 0.0,
+                y = tick.cameraPosition
+            )
+        }
+
     }
 
     fun ticks(viewScaling: Double, viewDelta: Double, length: Double): List<Tick> {
@@ -110,8 +103,9 @@ class Grid2D : Extension {
             Tick(
                 worldPosition = worldPosition,
                 cameraPosition = viewScaling * worldPosition + viewDelta,
-                color = if(worldPosition == 0.0) ColorRGBa.BLACK else color,
-                tag = String.format("%.1g", worldPosition)
+                color = if (worldPosition == 0.0) ColorRGBa.BLACK else ColorRGBa.GRAY,
+                weight = if (worldPosition == 0.0) 1.1 else 1.0,
+                tag = "%.1g".format(worldPosition)
             )
         }
 
@@ -125,7 +119,7 @@ class Grid2D : Extension {
         val cameraPosition: Double,
         val color: ColorRGBa = ColorRGBa.GRAY,
         val weight: Double = 1.0,
-        val tag: String = ""
+        val tag: String? = null
     )
 
 }

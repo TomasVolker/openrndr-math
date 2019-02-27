@@ -23,12 +23,11 @@ val openrndrOS = when (OperatingSystem.current()) {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
+    api(kotlin("stdlib"))
     testCompile("junit", "junit", "4.12")
 
-    compile("org.openrndr:openrndr-core:$openrndrVersion")
-    compile("org.openrndr:openrndr-extensions:$openrndrVersion")
-    //compile("org.openrndr:openrndr-ffmpeg:$openrndrVersion")
+    api("org.openrndr:openrndr-core:$openrndrVersion")
+    api("org.openrndr:openrndr-extensions:$openrndrVersion")
 
     runtime("org.openrndr:openrndr-gl3:$openrndrVersion")
     runtime("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")

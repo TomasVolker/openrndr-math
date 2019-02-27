@@ -1,76 +1,41 @@
 package tomasvolker.grafiko
 
-import numeriko.openrndr.pipeTransforms
-import numeriko.openrndr.xy
-import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.isolated
-import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
-import org.openrndr.math.transforms.scale
+import tomasvolker.grafiko.plot.plotLine
+import tomasvolker.grafiko.plot.plotScatter
+import tomasvolker.grafiko.plot.quickPlot
+import tomasvolker.grafiko.primitives.d
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
 fun main() {
 
-    application {
+    val size = 1000
 
-        configure {
-            width = 1000
-            height = 800
-            windowResizable = true
-        }
+    val x = (0 until size).map { 20.0 * it.d / size }
+    val y = x.map { sin(2 * PI * it / 10.0) }
+    val y2 = x.map { cos(2 * PI * it / 10.0) }
 
-        program {
+    val pointList = x
+        .zip(y) { x, y -> Vector2(x, y) }
 
-            val r = 40e6 / (2 * PI)
+    val pointList2 = x
+        .zip(y2) { x, y -> Vector2(x, y)}
 
-            val t = List(1001) { i -> i.toDouble() / 1000.0 }
-            val x = t.map { r * cos(2 * PI * it)  }
-            val y = t.map { r * sin(2 * PI * it) + r }
+    quickPlot {
 
-            backgroundColor = ColorRGBa.WHITE
+        stroke = ColorRGBa.RED
+        strokeWeight = 2.0
+        plotLine(pointList)
 
-            //extend(Axis())
-
-            extend(PanZoom()) {
-                camera.view = scale(
-                    x = 1.0,
-                    y = -1.0,
-                    z = 1.0
-                )
-            }
-            extend(Grid2D())
-
-            extend {
-                drawer.fill = ColorRGBa.RED
-                drawer.stroke = ColorRGBa.RED
-
-                val pointList = x
-                    .zip(y) { x, y -> (drawer.view * Vector2(x, y).xy01).xy }
-
-                drawer.isolated {
-                    view = Matrix44.IDENTITY
-                    drawer.strokeWeight = 2.0
-                    drawer.lineStrip(pointList)
-                }
-
-                val line = listOf(Vector2(0.0, 0.0), Vector2(0.0, -2.0))
-                    .map { (drawer.view * it.xy01).xy }
-
-                drawer.stroke = ColorRGBa.BLUE
-
-                drawer.isolated {
-                    view = Matrix44.IDENTITY
-                    drawer.strokeWeight = 2.0
-                    drawer.lineStrip(line)
-                }
-
-            }
-
-        }
+        stroke = null
+        fill = ColorRGBa.BLUE
+        strokeWeight = 2.0
+        plotScatter(pointList2)
 
     }
+
 
 }

@@ -1,4 +1,4 @@
-package tomasvolker.grafiko
+package tomasvolker.grafiko.extensions
 
 import org.openrndr.Extension
 import org.openrndr.Program
@@ -7,6 +7,9 @@ import org.openrndr.draw.*
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
+import tomasvolker.grafiko.isolatedOrtho
+import tomasvolker.grafiko.primitives.d
+import tomasvolker.grafiko.scaleCentered
 
 class Axis: Extension {
 
@@ -24,8 +27,8 @@ class Axis: Extension {
 
         bounds = Rectangle(
             Vector2.ZERO,
-            program.width.toDouble(),
-            program.height.toDouble()
+            program.width.d,
+            program.height.d
         )
 
     }
@@ -37,10 +40,8 @@ class Axis: Extension {
 
     override fun afterDraw(drawer: Drawer, program: Program) {
         offscreen.unbind()
-        drawer.isolated {
-            view = Matrix44.IDENTITY
-            model = Matrix44.IDENTITY
-            ortho()
+
+        drawer.isolatedOrtho {
             val buffer = offscreen.colorBuffer(0)
             image(
                 colorBuffer = buffer,

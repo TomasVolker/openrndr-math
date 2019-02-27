@@ -1,4 +1,4 @@
-package numeriko.openrndr
+package tomasvolker.grafiko
 
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Quaternion
@@ -22,9 +22,9 @@ class TransformPipeBuilder {
     fun translate(offset: Vector2) = pipe(_translate(offset.xy0))
     fun translate(x:Double, y:Double, z:Double = 0.0) = pipe(_translate(Vector3(x, y, z)))
 
-    fun scale(scale: Double) = pipe(_scale(scale, scale, scale))
-    fun scale(scaleX: Double, scaleY: Double, scaleZ: Double = 1.0) = pipe(_scale(scaleX, scaleY, scaleZ))
-    fun scale(scale: Vector3) = pipe(_scale(scale.x, scale.y, scale.z))
+    fun scale(factor: Double) = pipe(_scale(factor, factor, factor))
+    fun scale(x: Double = 1.0, y: Double = 1.0, z: Double = 1.0) = pipe(_scale(x, y, z))
+    fun scale(factor: Vector3) = pipe(_scale(factor.x, factor.y, factor.z))
 
     inline fun pivot(position: Vector2, block: TransformPipeBuilder.()->Unit) {
         translate(-position)
@@ -40,5 +40,5 @@ class TransformPipeBuilder {
 
 }
 
-inline fun pipeTransforms(builder:TransformPipeBuilder.() -> Unit) =
+inline fun pipeTransforms(builder: TransformPipeBuilder.() -> Unit) =
     TransformPipeBuilder().apply(builder).transform

@@ -1,7 +1,6 @@
-package tomasvolker.grafiko
+package tomasvolker.grafiko.extensions
 
-import numeriko.openrndr.pipeTransforms
-import numeriko.openrndr.xy
+import tomasvolker.grafiko.pipeTransforms
 import org.openrndr.Extension
 import org.openrndr.MouseButton
 import org.openrndr.MouseEvent
@@ -9,6 +8,7 @@ import org.openrndr.Program
 import org.openrndr.draw.Drawer
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
+import tomasvolker.grafiko.xy
 import kotlin.math.exp
 
 class Camera2D {
@@ -56,8 +56,8 @@ class Camera2D {
             is State.Zoom -> pipeTransforms {
                 pivot(state.pivot) {
                     scale(
-                        scaleX = exp(zoomDragSpeed * delta.x),
-                        scaleY = exp(-zoomDragSpeed * delta.y)
+                        x = exp(zoomDragSpeed * delta.x),
+                        y = exp(-zoomDragSpeed * delta.y)
                     )
                 }
             }

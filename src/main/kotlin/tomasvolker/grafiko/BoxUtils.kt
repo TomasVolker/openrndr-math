@@ -8,13 +8,13 @@ import kotlin.math.min
 
 val Rectangle.aspectRatio get() = width / height
 
-fun Rectangle.biggestContainedBox(aspectRatio: Double = 1.0) =
+fun Rectangle.shrinkToAspectRatio(aspectRatio: Double = 1.0) =
         if (aspectRatio < this.aspectRatio)
             Rectangle.fromCenter(center, width = height * aspectRatio, height = height)
         else
             Rectangle.fromCenter(center, width = width, height = width / aspectRatio)
 
-fun Rectangle.smallestContainingBox(aspectRatio: Double = 1.0) =
+fun Rectangle.expandToAspectRatio(aspectRatio: Double = 1.0) =
     if (aspectRatio > this.aspectRatio)
         Rectangle.fromCenter(center, width = height * aspectRatio, height = height)
     else
@@ -53,6 +53,11 @@ val Rectangle.left get() = x
 val Rectangle.right get() = x + width
 val Rectangle.top get() = y
 val Rectangle.bottom get() = y + height
+
+val Rectangle.topLeft get() = Vector2(x, y)
+val Rectangle.topRight get() = Vector2(x + width, y)
+val Rectangle.bottomLeft get() = Vector2(x, y + height)
+val Rectangle.bottomRight get() = Vector2(x + width, y + height)
 
 infix fun Rectangle.intersect(
     other: Rectangle

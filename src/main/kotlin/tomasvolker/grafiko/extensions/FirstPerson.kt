@@ -1,4 +1,4 @@
-package tomasvolker.grafiko
+package tomasvolker.grafiko.extensions
 
 import org.openrndr.*
 import org.openrndr.color.ColorRGBa
@@ -222,6 +222,10 @@ class FirstPerson(
     private val firstPersonControls = FirstPersonControls(firstPersonCamera)
     private var lastSeconds: Double = -1.0
 
+    override fun setup(program: Program) {
+        firstPersonControls.setup(program)
+    }
+
     override fun beforeDraw(drawer: Drawer, program: Program) {
         if (lastSeconds == -1.0) lastSeconds = program.seconds
 
@@ -236,16 +240,5 @@ class FirstPerson(
         drawer.background(ColorRGBa.BLACK)
         drawer.perspective(fov, program.window.size.x / program.window.size.y, 0.1, 1000.0)
         drawer.view = firstPersonCamera.viewMatrix()
-    }
-
-    override fun afterDraw(drawer: Drawer, program: Program) {
-        drawer.isolated {
-            drawer.view = Matrix44.IDENTITY
-            drawer.ortho()
-        }
-    }
-
-    override fun setup(program: Program) {
-        firstPersonControls.setup(program)
     }
 }

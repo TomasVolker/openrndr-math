@@ -3,6 +3,8 @@ import org.openrndr.resourceUrl
 
 object Resources {
 
+    val defaultFont by lazy { fontImageMap("IBMPlexMono-Bold.ttf", 16.0) }
+
     fun url(name: String) = resourceUrl(name, Resources::class.java)
 
     fun fontImageMap(
