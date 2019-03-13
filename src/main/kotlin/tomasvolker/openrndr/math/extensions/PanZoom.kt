@@ -15,8 +15,10 @@ class Camera2D {
 
     var scrollSpeed: Double = 0.1
     var zoomDragSpeed: Double = 0.002
+    var damping = 20.0
 
     var view = Matrix44.IDENTITY
+    var target = Matrix44.IDENTITY
 
     fun cameraToWorld(position: Vector2) = (view.inversed * position.xy01).xy
     fun worldToCamera(position: Vector2) = (view * position.xy01).xy
@@ -28,8 +30,19 @@ class Camera2D {
     }
 
 
-    var state: State =
-        State.Idle
+    var state: State = State.Idle
+
+    var lastTime: Double = 0.0
+
+    fun update(time: Double) {
+        val delta = time - lastTime
+
+        //view = target
+
+        view += (target - view) * (damping * delta).coerceAtMost(1.0)
+
+        lastTime = time
+    }
 
     fun mouseDown(event: MouseEvent) {
 
@@ -50,7 +63,7 @@ class Camera2D {
 
         val delta = event.dragDisplacement
 
-        view *= when(state) {
+        target *= when(state) {
             is State.Pan -> pipeTransforms {
                 translate((view.inversed * delta.xy0).xy)
             }
@@ -70,7 +83,7 @@ class Camera2D {
     fun mouseScrolled(event: MouseEvent) {
         val worldPosition = cameraToWorld(event.position)
 
-        view *= pipeTransforms {
+        target *= pipeTransforms {
             pivot(worldPosition) {
                 scale(exp(scrollSpeed * event.rotation.y))
             }
@@ -113,6 +126,7 @@ class PanZoom : Extension {
     }
     override fun beforeDraw(drawer: Drawer, program: Program) {
         if (enabled) {
+            camera.update(program.seconds)
             drawer.view = camera.view
         }
     }
